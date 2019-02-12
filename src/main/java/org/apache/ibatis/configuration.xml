@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 方法一： 从外部指定properties配置文件, 除了使用resource属性指定外，还可通过url属性指定url
+        两者不能同时配置
+        <properties resource="datasource.properties" url="" ></properties>
+    -->
+    <!-- 方法二： 直接配置为xml;当以上两种方法都xml配置优先，外部指定properties配置其次-->
+    <properties>
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/test1"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </properties>
+
+    <typeAliases>
+        <package name="com.wode.pojo"/>
+    </typeAliases>
+    <!--可以配置多个environment子节点,通过default选择对应的环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <package name="com/wode/mapper"/>
+    </mappers>
+</configuration>
